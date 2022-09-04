@@ -1,3 +1,9 @@
+"""
+The key to this pattern is that the real service you are trying to wrap
+IS A proxy object in its self. This allows you to operate on them, from the clients perspective, 
+in the same exact way due to their common interface. This can be quite useful for implementing 
+anything from caching, access control, to lazy loading.  
+"""
 from abc import ABC, abstractmethod
 
 
