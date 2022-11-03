@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-import uuid 
+import uuid
 from typing import List, Dict, Any
 import datetime
 
@@ -11,11 +11,11 @@ class Event:
     timestamp: int
 
 
-
 class Subscriber(ABC):
     """
     I am the interface for subscribers to implement
     """
+
     def __init__(self):
         self.id = uuid.uuid4()
 
@@ -45,10 +45,11 @@ class EventHandler:
         if s_id not in self.subscribers:
             raise KeyError(f"Can not unsubscribe if not subscribed! {s_id}")
         del self.subscribers[s_id]
-        
-    def notifyAll(self, event: Event) -> None:
+
+    def emit(self, event: Event) -> None:
         for subscriber in self.subscribers.values():
             subscriber.update(event)
+
 
 def get_now_timestamp() -> float:
     now = datetime.datetime.now()
@@ -63,9 +64,10 @@ def client():
     now = get_now_timestamp()
     event = Event(
         data=[{"message": "send this email"}, {"message": "make a log entry"}],
-        timestamp=now
-        )
+        timestamp=now,
+    )
 
-    handler.notifyAll(event=event)
+    handler.emit(event=event)
+
 
 client()
