@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 import uuid
-from typing import List, Dict, Any
+from typing import Any
 import datetime
 
 
 @dataclass(frozen=True)
 class Event:
-    data: List[Dict[Any, Any]]
-    timestamp: int
+    data: list[dict[Any, Any]]
+    timestamp: float
 
 
 class Subscriber(ABC):
@@ -17,7 +17,7 @@ class Subscriber(ABC):
     """
 
     def __init__(self):
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
 
     @abstractmethod
     def update(self, e: Event) -> None:
@@ -33,7 +33,7 @@ class EchoSubscriber(Subscriber):
 
 
 class EventHandler:
-    def __init__(self, subscribers: Dict[str, Subscriber]):
+    def __init__(self, subscribers: dict[str, Subscriber]):
         self.subscribers = subscribers
 
     def subscribe(self, s: Subscriber) -> None:
