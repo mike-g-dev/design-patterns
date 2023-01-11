@@ -60,7 +60,7 @@ class S3BlotterFileRepo(BlotterFileRepo):
         Uses boto adapter to upload a file to filestore.
         """
         print(f"Uploading {date}.parquet file for {client}.")
-        return uuid.uuid4()
+        return str(uuid.uuid4())
 
 class CachedS3BlotterFileRepo(BlotterFileRepo):
     """
@@ -97,7 +97,5 @@ def client():
     cached_repo = CachedS3BlotterFileRepo(s3=s3)
 
     cached_repo.getFile("Up Down Partners", "20220823")
-
-
 
 client()
